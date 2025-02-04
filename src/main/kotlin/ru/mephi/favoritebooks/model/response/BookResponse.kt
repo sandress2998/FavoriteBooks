@@ -13,6 +13,8 @@ class BookResponse (
 
     val sold: Int,
 
+    val rating: Int,
+
     val appreciatingReaders: Iterable<Reader>,
 
     override val id: Long,

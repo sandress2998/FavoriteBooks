@@ -3,6 +3,7 @@ package ru.mephi.favoritebooks.database.entity
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import jakarta.persistence.*
+import ru.mephi.favoritebooks.model.exception.OutOfRangeException
 
 @Entity
 class Book (
@@ -10,8 +11,17 @@ class Book (
     var title: String,
 
     @Column(nullable = false)
-    var author: String
+    var author: String,
+
+    @Column(nullable = false)
+    var rating: Int
 ) : AbstractEntity() {
+    init {
+        if (!(rating in 1.. 5 )) {
+            throw OutOfRangeException(rating)
+        }
+    }
+
     @Column
     @ManyToMany
     @JoinTable(
